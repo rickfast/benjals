@@ -8,5 +8,8 @@
                  [postgresql "9.1-901.jdbc4"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [ring/ring-json "0.2.0"]
-                 [compojure "1.1.3"]]
+                 [compojure "1.1.3"]
+                 [clj-dbcp      "0.8.0"]
+                 [clj-liquibase "0.4.0"]
+                 [oss-jdbc      "0.8.0"]]
   :main benjals.core)
