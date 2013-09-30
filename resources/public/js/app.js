@@ -6,6 +6,7 @@ define(['angular'], function (angular)
 	{
 		$routeProvider.
   			when('/teams', {templateUrl: 'html/partial/teams.html', controller: 'TeamsController'}).
+            when('/teams/add', {templateUrl: 'html/partial/addTeam.html', controller: 'AddTeamController'}).
 			otherwise({redirectTo: '/teams'});
 	}]);
 
