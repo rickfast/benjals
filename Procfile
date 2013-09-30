@@ -1,0 +1,1 @@
+java $JVM_OPTS -cp target/benjals.jar clojure.main -m benjals.core $PORT
