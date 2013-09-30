@@ -9,9 +9,9 @@
 
 ;; This stuff needs to be refactored in controller namespaces (see: https://devcenter.heroku.com/articles/clojure-web-application)
 (defroutes routes
-  (GET "/" [] (resp/redirect "/index.html"))
   (GET "/teams" [] {:body (all)})
   (POST "/teams" {body :body} {:body (create body)})
+  (GET "/" [] (resp/redirect "/index.html"))
   (route/resources "/"))
 
 (def app

@@ -4,3 +4,7 @@ pom.xml
 /classes/
 /targets/
 .lein-deps-sum
+*.iml
+*.idea
+*.log
+target
