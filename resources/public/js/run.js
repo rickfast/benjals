@@ -5,10 +5,12 @@ define([
     'controller/teams'],
 	function (angular)
 	{
-        angular.element(document).ready(function()
+        angular.bootstrap(document, ['benjals']);
+
+        /*angular.element(document).ready(function()
         {
             console.log('app ready');
-			angular.bootstrap(document, ['benjals']);
-		});
+
+		});*/
 	});
 
