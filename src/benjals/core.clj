@@ -3,12 +3,16 @@
         [ring.adapter.jetty :as ring]
         [ring.middleware.json :only (wrap-json-response wrap-json-body)]
         [benjals.model.migration :only (migrate)]
-        [benjals.model.team]))
+        [benjals.model.team])
+  (:require [compojure.route :as route]
+            [ring.util.response :as resp]))
 
 ;; This stuff needs to be refactored in controller namespaces (see: https://devcenter.heroku.com/articles/clojure-web-application)
 (defroutes routes
+  (GET "/" [] (resp/redirect "/index.html"))
   (GET "/teams" [] {:body (all)})
-  (POST "/teams" {body :body} {:body (create body)}))
+  (POST "/teams" {body :body} {:body (create body)})
+  (route/resources "/"))
 
 (def app
   (-> routes
