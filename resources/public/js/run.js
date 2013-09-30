@@ -7,6 +7,7 @@ define([
 	{
         angular.element(document).ready(function()
         {
+            console.log('app ready');
 			angular.bootstrap(document, ['benjals']);
 		});
 	});
