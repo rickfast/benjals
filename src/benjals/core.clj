@@ -17,4 +17,7 @@
 (defn -main []
   (println (System/getenv "DATABASE_URL"))
   (migrate (System/getenv "DATABASE_URL"))
-  (run-jetty (var app) {:port 8080 :join? false}))
+  (let
+    [port-env System/getenv "PORT"
+     port (if-not (nil? port-env) port-env "8080")])
+  (run-jetty (var app) {:port port :join? false}))
