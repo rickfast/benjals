@@ -11,7 +11,6 @@
 (defroutes routes
   (GET "/teams" [] {:body (all)})
   (POST "/teams" {body :body} {:body (create body)})
-  (GET "/" [] (resp/redirect "/index.html"))
   (route/resources "/"))
 
 (def app
