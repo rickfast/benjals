@@ -18,6 +18,6 @@
   (println (System/getenv "DATABASE_URL"))
   (migrate (System/getenv "DATABASE_URL"))
   (let
-    [port-env System/getenv "PORT"
-     port (if-not (nil? port-env) port-env "8080")]
+    [port-env (System/getenv "PORT")
+     port (if-not (nil? port-env) (Integer/valueOf port-env) 8080)]
     (run-jetty (var app) {:port port :join? false})))
