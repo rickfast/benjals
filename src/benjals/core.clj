@@ -2,20 +2,20 @@
   (:use [compojure.core :only (defroutes GET POST)]
         [ring.adapter.jetty :as ring]
         [ring.middleware.json :only (wrap-json-response wrap-json-body)]
-        [benjals.model.migration :only (migrate)]
-        [benjals.model.team])
+        [benjals.model.migration :only (migrate)])
   (:require [compojure.route :as route]
-            [ring.util.response :as resp]))
+            [compojure.handler :as handler]
+            [ring.util.response :as resp]
+            [benjals.controller.team :as team]))
 
-;; This stuff needs to be refactored in controller namespaces (see: https://devcenter.heroku.com/articles/clojure-web-application)
 (defroutes routes
-  (GET "/teams" [] {:body (all)})
-  (POST "/teams" {body :body} {:body (create body)})
+  team/routes
+  (route/resources "/")
   (GET "/" [] (resp/resource-response "index.html" {:root "public"}))
-  (route/resources "/"))
+  (route/not-found "Not Found"))
 
 (def app
-  (-> routes
+  (-> (handler/api routes)
     (wrap-json-response) (wrap-json-body)))
 
 (defn -main []
