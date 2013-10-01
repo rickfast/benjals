@@ -6,10 +6,12 @@
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.util.response :as resp]
-            [benjals.controller.team :as team]))
+            [benjals.controller.team :as team]
+            [benjals.controller.user :as user]))
 
 (defroutes routes
   team/routes
+  user/routes
   (route/resources "/")
   (GET "/" [] (resp/resource-response "index.html" {:root "public"}))
   (route/not-found "Not Found"))

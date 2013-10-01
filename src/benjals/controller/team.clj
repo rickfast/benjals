@@ -4,13 +4,16 @@
   (:require [benjals.model.team :as model]))
 
 (defn index-teams []
-  (response (model/all)))
+  (response (model/get-all)))
 
 (defn create-team [team]
   (response (model/create team)))
 
 (defn get-team [id]
-  (response id))
+  (def result (model/get-by-id (read-string id)))
+  (cond
+    (nil? result) {:status 404}
+    :else (response result)))
 
 (defn update-team [id team]
   (response team))
