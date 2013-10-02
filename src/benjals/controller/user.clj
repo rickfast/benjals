@@ -7,10 +7,10 @@
   (response (model/create user)))
 
 (defn get-user [id]
-  (def result (model/get-by-id (read-string id)))
-  (cond
-    (nil? result) {:status 404}
-    :else (response result)))
+  (let [result (model/get-by-id (read-string id))]
+    (cond
+      (nil? result) {:status 404}
+      :else (response result))))
 
 (defn update-user [id user]
   (response user))
