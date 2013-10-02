@@ -4,7 +4,7 @@ define(['app'], function (app)
     {
         var Team = $resource('/teams/:teamId', { teamId:'@id' });
 
-        $scope.teamForm = {name: ""};
+        $scope.teamForm = {name: "", players: [{ email:"" }]};
 
         $scope.addTeam = function()
         {
@@ -15,5 +15,15 @@ define(['app'], function (app)
                 $location.path("/teams");
             });
         };
+
+        $scope.addPlayer = function()
+        {
+            $scope.teamForm.players.push({ email:"" });
+        };
+
+        $scope.lastPlayer = function(index)
+        {
+            return index == $scope.teamForm.players.length - 1;
+        }
     });
 });

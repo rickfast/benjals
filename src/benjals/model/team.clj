@@ -1,5 +1,6 @@
 (ns benjals.model.team
-  (:require [clojure.java.jdbc :as sql]))
+  (:require [clojure.java.jdbc :as sql]
+            [benjals.model.user :as user]))
 
 (defn get-all []
   (sql/with-connection (System/getenv "DATABASE_URL")
@@ -15,6 +16,8 @@
         (empty? results) nil
         :else (first results)))))
 
-(defn create [team]
-  (sql/with-connection (System/getenv "DATABASE_URL")
-    (sql/insert-values :teams [:name] (vals team))))
+(defn create [{players "players", :as team}]
+  (let [team (dissoc team "players")]
+    (map user/create players)
+    (sql/with-connection (System/getenv "DATABASE_URL")
+      (sql/insert-values :teams [:name] (vals team)))))

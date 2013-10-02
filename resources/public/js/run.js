@@ -1,5 +1,6 @@
 define([
 	'angular',
+    'angularRoute',
     'angularResource',
     'less',
     'controller/teams',

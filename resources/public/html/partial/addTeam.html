@@ -3,6 +3,12 @@
         <legend>Add Team</legend>
         <label>Name</label>
         <input type="text" data-ng-model="teamForm.name" placeholder="Enter name...">
-        <button type="submit" data-ng-click="addTeam()">Submit</button>
+        <h5>Players</h5>
+        <div data-ng-class="{'input-append': lastPlayer($index)}" data-ng-repeat-start="player in teamForm.players">
+            <input type="text" class="span2" data-ng-model="player.email" placeholder="Enter email...">
+            <button type="button" class="btn" data-ng-show="lastPlayer($index)" data-ng-click="addPlayer()">+</button>
+        </div>
+        <br data-ng-repeat-end /><br />
+        <button type="submit" class="btn" data-ng-click="addTeam()">Submit</button>
     </fieldset>
 </form>
