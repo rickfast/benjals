@@ -10,7 +10,7 @@
   (response (model/create team)))
 
 (defn get-team [id]
-  (let [result (model/get-by-id (read-string id))]
+  (let [result (model/get-by-id id)]
     (cond
       (nil? result) {:status 404}
       :else (response result))))
@@ -27,7 +27,8 @@
       (GET  "/" [] (index-teams))
       (POST "/" {body :body} (create-team body))
       (context "/:id" [id]
-        (defroutes team-routes
-          (GET "/" [] (get-team id))
-          (PUT "/" {body :body} (update-team id body))
-          (DELETE "/" [] (delete-team id)))))))
+        (let [id (read-string id)]
+          (defroutes team-routes
+            (GET "/" [] (get-team id))
+            (PUT "/" {body :body} (update-team id body))
+            (DELETE "/" [] (delete-team id))))))))

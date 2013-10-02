@@ -7,7 +7,7 @@
   (response (model/create user)))
 
 (defn get-user [id]
-  (let [result (model/get-by-id (read-string id))]
+  (let [result (model/get-by-id id)]
     (cond
       (nil? result) {:status 404}
       :else (response result))))
@@ -23,7 +23,8 @@
     (defroutes users-routes
       (POST "/" {body :body} (create-user body))
       (context "/:id" [id]
-        (defroutes user-routes
-          (GET "/" [] (get-user id))
-          (PUT "/" {body :body} (update-user id body))
-          (DELETE "/" [] (delete-user id)))))))
+        (let [id (read-string id)]
+          (defroutes user-routes
+            (GET "/" [] (get-user id))
+            (PUT "/" {body :body} (update-user id body))
+            (DELETE "/" [] (delete-user id))))))))
