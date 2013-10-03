@@ -18,7 +18,6 @@
 
 (defn create [{players "players", :as team}]
   (let [team (dissoc team "players")]
-    (map user/create players)
-    ;(user/create (nth players 0))
+    (doall (map user/create players))
     (sql/with-connection (System/getenv "DATABASE_URL")
-      (sql/insert-values :teams [:name] (vals team)))))
+      (sql/insert-values :teams (keys team) (vals team)))))
