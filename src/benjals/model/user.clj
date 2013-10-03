@@ -11,4 +11,4 @@
 
 (defn create [user]
   (sql/with-connection (System/getenv "DATABASE_URL")
-    (sql/insert-values :users [:first :last :email] (vals user))))
+    (sql/insert-values :users (keys user) (vals user))))
