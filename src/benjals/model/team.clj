@@ -1,23 +1,42 @@
 (ns benjals.model.team
   (:require [clojure.java.jdbc :as sql]
+            [benjals.model.entity :as entity]
             [benjals.model.user :as user]))
 
-(defn get-all []
-  (sql/with-connection (System/getenv "DATABASE_URL")
+(def table-name "teams")
+(def db-url (System/getenv "DATABASE_URL"))
+
+(defn link-players [players team]
+  (assoc team "players" (map (fn [player]
+                               (entity/create "users_teams"
+                                 {"user_id" (player :id), "team_id" (team :id)}
+                                 db-url)
+                               player)
+                          players)))
+
+(defn get-all-players [id]
+  (sql/with-connection db-url
     (sql/with-query-results results
-      ["select * from teams order by id desc"]
+      ["select users.id, users.email, users.first, users.last from users
+        inner join users_teams on (users.id = users_teams.user_id) where users_teams.team_id = ?" id]
       (into [] results))))
 
+(defn get-all []
+  (map (fn [team]
+         (assoc team "players" (get-all-players (team :id))))
+    (entity/get-all table-name db-url)))
+
 (defn get-by-id [id]
-  (sql/with-connection (System/getenv "DATABASE_URL")
-    (sql/with-query-results results
-      ["select * from teams where id = ?" id]
-      (cond
-        (empty? results) nil
-        :else (first results)))))
+  (assoc (entity/get-by-id table-name id db-url)
+    "players" (get-all-players id)))
 
 (defn create [{players "players", :as team}]
-  (let [team (dissoc team "players")]
-    (doall (map user/create players))
-    (sql/with-connection (System/getenv "DATABASE_URL")
-      (sql/insert-values :teams (keys team) (vals team)))))
+  (let [team (entity/create table-name (dissoc team "players") db-url)]
+    (link-players (map (fn [player]
+                         (let [existing-user (user/get-by-email (player "email"))]
+                           (cond
+                             (nil? existing-user) (user/create player)
+                             :else existing-user)))
+                    players)
+      team)))
+

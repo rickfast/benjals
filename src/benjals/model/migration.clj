@@ -30,7 +30,11 @@
 (def mc-change6 (ch/drop-not-null-constraint :users :last))
 (def changeset-6 ["id=6" "author=johnvolk" [mc-change6]])
 
-(defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6])
+(def ct-change7 (ch/create-table :users_teams [[:user_id :int :null false :refs "users" :fkname "fk_users"]
+                                               [:team_id :int :null false :refs "teams" :fkname "fk_teams"]]))
+(def changeset-7 ["id=7" "author=johnvolk" [ct-change7]])
+
+(defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6 changeset-7])
 
 (defn- split-user-info [user-info]
   (let [user-tokens (string/split user-info (Pattern/compile ":"))]
