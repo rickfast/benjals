@@ -4,7 +4,9 @@ define([
     'angularResource',
     'less',
     'controller/teams',
-    'controller/addTeam'],
+    'controller/addTeam',
+    'controller/viewTeam',
+    'controller/viewUser'],
 	function (angular)
 	{
         angular.element(document).ready(function()

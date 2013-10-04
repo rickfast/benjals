@@ -1,5 +1,5 @@
 <h1>Teams</h1>
 <ul>
-    <li data-ng-repeat="team in teams">{{team.name}}</li>
+    <li data-ng-repeat="team in teams"><a href="#/teams/{{team.id}}">{{team.name}}</a></li>
 </ul>
 <a href="#/teams/add">Add Team</a>
