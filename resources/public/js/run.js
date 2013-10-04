@@ -6,6 +6,7 @@ define([
     'controller/teams',
     'controller/addTeam',
     'controller/viewTeam',
+    'controller/addUser',
     'controller/viewUser'],
 	function (angular)
 	{

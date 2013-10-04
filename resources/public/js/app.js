@@ -8,6 +8,7 @@ define(['angular'], function (angular)
   			when('/teams', {templateUrl: 'html/partial/teams.html', controller: 'TeamsController'}).
             when('/teams/add', {templateUrl: 'html/partial/addTeam.html', controller: 'AddTeamController'}).
             when('/teams/:teamId', {templateUrl: 'html/partial/viewTeam.html', controller: 'ViewTeamController'}).
+            when('/users/add', {templateUrl: 'html/partial/addUser.html', controller: 'AddUserController'}).
             when('/users/:userId', {templateUrl: 'html/partial/viewUser.html', controller: 'ViewUserController'}).
 			otherwise({redirectTo: '/teams'});
 	}]);
