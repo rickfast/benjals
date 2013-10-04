@@ -12,6 +12,12 @@
       (nil? result) {:status 404}
       :else (response result))))
 
+(defn get-user-by-email [email]
+  (let [result (model/get-by-email email)]
+    (cond
+      (nil? result) {:status 404}
+      :else (response result))))
+
 (defn update-user [id user]
   (response user))
 
@@ -22,9 +28,12 @@
   (context "/users" []
     (defroutes users-routes
       (POST "/" {body :body} (create-user body))
-      (context "/:id" [id]
+      (context ["/:id", :id #"[0-9]+"] [id]
         (let [id (read-string id)]
-          (defroutes user-routes
+          (defroutes user-id-routes
             (GET "/" [] (get-user id))
             (PUT "/" {body :body} (update-user id body))
-            (DELETE "/" [] (delete-user id))))))))
+            (DELETE "/" [] (delete-user id)))))
+      (context "/:email" [email]
+        (defroutes user-email-routes
+          (GET "/" [] (get-user-by-email email)))))))
