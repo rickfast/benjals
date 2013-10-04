@@ -29,6 +29,7 @@ define(['app'], function (app)
             {
                 User.get({ userId:newPlayer.email }, function(user)
                 {
+                    console.log('got it');
                     $scope.matchedEmails[lastIndex] = true;
                 }, function(response)
                 {
