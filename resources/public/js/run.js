@@ -7,7 +7,10 @@ define([
     'controller/addTeam',
     'controller/viewTeam',
     'controller/addUser',
-    'controller/viewUser'],
+    'controller/viewUser',
+    'controller/games',
+    'controller/addGame',
+    'controller/viewGame'],
 	function (angular)
 	{
         angular.element(document).ready(function()

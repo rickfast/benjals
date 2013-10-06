@@ -3,7 +3,7 @@ define(['app'], function (app)
     app.controller('AddTeamController', function AddTeamController($scope, $resource, $location)
     {
         var Team = $resource('/teams/:teamId', { teamId:'@id' });
-        var User = $resource('/users/:userId', { teamId:'@id' });
+        var User = $resource('/users/:email', { email:'@email' });
 
         $scope.teamForm = { name:"", players:[] };
         $scope.matchedEmails = [];
@@ -27,7 +27,7 @@ define(['app'], function (app)
             $scope.teamForm.players.push(newPlayer);
             $scope.$watch('teamForm.players[' + lastIndex + '].email', function()
             {
-                User.get({ userId:newPlayer.email }, function(user)
+                User.get({ email:newPlayer.email }, function(user)
                 {
                     $scope.matchedEmails[lastIndex] = true;
                 }, function(response)

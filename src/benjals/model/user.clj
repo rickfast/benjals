@@ -17,5 +17,4 @@
         :else (first results)))))
 
 (defn create [user]
-  (prn user)
   (entity/create table-name user db-url))

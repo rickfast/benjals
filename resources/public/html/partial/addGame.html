@@ -1,0 +1,12 @@
+<form>
+    <fieldset>
+        <legend>Add Game</legend>
+        <label>Date</label>
+        <div class="input-prepend input-append">
+            <button type="button" class="btn" data-ng-click="subtractTime()"><i class="icon-chevron-left"></i></button>
+            <input type="text" class="text-center" value="{{startTime | date:'short' }}">
+            <button type="button" class="btn" data-ng-click="addTime()"><i class="icon-chevron-right"></i></button>
+        </div><br/>
+        <button type="submit" class="btn" data-ng-click="addGame()">Submit</button>
+    </fieldset>
+</form>

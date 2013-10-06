@@ -34,7 +34,13 @@
                                                [:team_id :int :null false :refs "teams" :fkname "fk_teams"]]))
 (def changeset-7 ["id=7" "author=johnvolk" [ct-change7]])
 
-(defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6 changeset-7])
+(def ct-change8 (ch/create-table :games [[:id :int :null false :pk true :autoinc true]
+                                         [:team_id :int :null false :refs "teams" :fkname "fk_teams"]
+                                         [:start_time :timestamp :null false]]))
+(def changeset-8 ["id=8" "author=johnvolk" [ct-change8]])
+
+(defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6
+                                       changeset-7 changeset-8])
 
 (defn- split-user-info [user-info]
   (let [user-tokens (string/split user-info (Pattern/compile ":"))]
