@@ -1,7 +1,9 @@
 define(['app'], function (app)
 {
-    app.controller('AddGameController', function AddGameController($scope, $resource, $routeParams, $location, $timeout)
+    app.controller('AddGameController', function AddGameController($scope, $resource, $routeParams, $location, uiReady)
     {
+        uiReady.ready();
+
         var Game = $resource('/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
 
         $scope.startTime = null;

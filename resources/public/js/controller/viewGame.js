@@ -1,6 +1,6 @@
 define(['app'], function (app)
 {
-    app.controller('ViewGameController', function ViewGameController($scope, $resource, $routeParams)
+    app.controller('ViewGameController', function ViewGameController($scope, $resource, $routeParams, uiReady)
     {
         var Game = $resource('/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
 
@@ -9,6 +9,7 @@ define(['app'], function (app)
             var game = $scope.game;
 
             game.start_time_date = new Date(game.start_time);
+            uiReady.ready();
         });
     });
 });

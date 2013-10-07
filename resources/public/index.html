@@ -9,20 +9,16 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="navbar navbar-default">
-        <div class="container">
+
+    <div class="container">
+        <div class="navbar navbar-default" data-ng-controller="NavController">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="#">benjals</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a data-ng-click="home()">Home</a></li>
+                    <li><a data-ng-click="signUp()">Sign Up</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
@@ -31,14 +27,16 @@
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="password">
                     </div>
-                    <button type="submit" class="btn btn-sm">Submit</button>
+                    <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>
         </div>
+        <div data-ng-controller="UIController">
+            <img data-ng-hide="showUI" src="img/loader.gif"></img>
+            <div ng-view data-ng-show="showUI"></div>
+        </div>
     </div>
-    <div ng-view></div>
-</div>
-<script data-main="js/main" src="js/libs/require.js"></script>
+    <script data-main="js/main" src="js/libs/require.js"></script>
 
 </body>
 

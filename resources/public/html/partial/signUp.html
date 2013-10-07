@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>benjals</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dui mi, egestas at imperdiet et, elementum in lacus. Ut at mauris placerat, fringilla augue at, ornare nisl. Curabitur commodo felis purus, id placerat enim laoreet in. Quisque ultrices lectus in sem faucibus fermentum. Ut quis euismod mi. Morbi id lobortis.</p>
+        <p><a class="btn btn-primary btn-lg" data-ng-click="showSignUpForm = true">Sign Up</a></p>
+    </div>
+</div>
+<div class="panel panel-default" data-ng-show="showSignUpForm">
+    <div class="panel-heading">
+        <h3 class="panel-title">Sign Up</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" data-ng-model="signUpForm.first" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" data-ng-model="signUpForm.last" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" data-ng-model="signUpForm.email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Pwd</label>
+                    <input type="password" class="form-control" placeholder="Confirm Pwd">
+                </div>
+                <button type="submit" class="btn btn-primary" data-ng-click="signUp()">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
