@@ -1,6 +1,8 @@
 <h1>Teams</h1>
-<ul>
-    <li data-ng-repeat="team in teams"><a href="#/teams/{{team.id}}">{{team.name}}</a></li>
+<ul class="list-group">
+    <a class="list-group-item" data-ng-repeat="team in teams" href="#/teams/{{team.id}}">{{team.name}}</a>
 </ul>
-<a href="#/teams/add">Add Team</a><br/>
-<a href="#/users/add">Add User</a>
+<div class="btn-group">
+    <a href="#/teams/add" class="btn btn-success">Add Team</a>
+    <a href="#/users/add" class="btn btn-success">Add User</a>
+</div>

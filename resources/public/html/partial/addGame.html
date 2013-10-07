@@ -2,11 +2,15 @@
     <fieldset>
         <legend>Add Game</legend>
         <label>Date</label>
-        <div class="input-prepend input-append">
-            <button type="button" class="btn" data-ng-click="subtractTime()"><i class="icon-chevron-left"></i></button>
-            <input type="text" class="text-center" value="{{startTime | date:'short' }}">
-            <button type="button" class="btn" data-ng-click="addTime()"><i class="icon-chevron-right"></i></button>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="btn" data-ng-click="subtractTime()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+            </span>
+            <input type="text" class="form-control text-center" value="{{startTime | date:'short' }}">
+            <span class="input-group-btn">
+                <button type="button" class="btn" data-ng-click="addTime()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+            </span>
         </div><br/>
-        <button type="submit" class="btn" data-ng-click="addGame()">Submit</button>
+        <button type="submit" class="btn btn-primary" data-ng-click="addGame()">Submit</button>
     </fieldset>
 </form>

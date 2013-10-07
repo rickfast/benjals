@@ -1,15 +1,23 @@
 <form>
     <fieldset>
         <legend>Add Team</legend>
-        <label>Name</label>
-        <input type="text" data-ng-model="teamForm.name" placeholder="Enter name...">
-        <h5>Players</h5>
-        <div data-ng-class="{'input-append': lastPlayer($index), 'input-prepend': true}" data-ng-repeat-start="player in teamForm.players">
-            <span class="add-on"><i data-ng-class="{'icon-ok': emailMatched($index), 'icon-remove': !emailMatched($index)}"></i></span>
-            <input type="text" class="span2" data-ng-model="player.email" placeholder="Enter email...">
-            <button type="button" class="btn" data-ng-show="lastPlayer($index)" data-ng-click="addPlayer()">+</button>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" data-ng-model="teamForm.name" placeholder="Enter name">
         </div>
-        <br data-ng-repeat-end /><br />
-        <button type="submit" class="btn" data-ng-click="addTeam()">Submit</button>
+        <h5>Players</h5>
+
+        <div data-ng-class="{'input-group': lastPlayer($index), 'input-group': true}"
+             data-ng-repeat-start="player in teamForm.players">
+            <span class="input-group-addon"><i
+                    data-ng-class="{'glyphicon-ok': emailMatched($index), 'glyphiconicon-remove': !emailMatched($index)}"></i></span>
+            <input type="text" class="form-control" data-ng-model="player.email" placeholder="Enter email...">
+            <span class="input-group-btn">
+                <button type="button" class="btn" data-ng-show="lastPlayer($index)" data-ng-click="addPlayer()">+
+                </button>
+            </span>
+        </div>
+        <br data-ng-repeat-end/><br/>
+        <button type="submit" class="btn btn-primary" data-ng-click="addTeam()">Submit</button>
     </fieldset>
 </form>

@@ -1,6 +1,6 @@
 <h1>{{team.name}}</h1>
 <h5>Players</h5>
-<ul>
-    <li data-ng-repeat="player in team.players"><a href="#/users/{{player.id}}">{{player.email}}</a></li>
+<ul class="list-group">
+    <a class="list-group-item" data-ng-repeat="player in team.players" href="#/users/{{player.id}}">{{player.email}}</a></li>
 </ul>
-<a href="#/teams/{{team.id}}/games">View Games</a><br/>
+<a href="#/teams/{{team.id}}/games" class="btn btn-success">View Games</a><br/>
