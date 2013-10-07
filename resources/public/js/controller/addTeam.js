@@ -7,6 +7,7 @@ define(['app'], function (app)
 
         $scope.teamForm = { name:"", players:[] };
         $scope.matchedEmails = [];
+        $scope.watches = [];
 
         $scope.addTeam = function()
         {
@@ -23,19 +24,43 @@ define(['app'], function (app)
             var newPlayer = { email:"" };
             var lastIndex = $scope.teamForm.players.length;
 
-            $scope.matchedEmails.push[false];
+            $scope.matchedEmails.push(false);
             $scope.teamForm.players.push(newPlayer);
-            $scope.$watch('teamForm.players[' + lastIndex + '].email', function()
+            $scope.addWatch(lastIndex, newPlayer);
+        };
+
+        $scope.removePlayer = function(index)
+        {
+            for(var i = 0;i < $scope.watches.length;i++)
             {
-                User.get({ email:newPlayer.email }, function(user)
+                $scope.watches[i]();
+            }
+
+            $scope.watches = [];
+            $scope.matchedEmails.splice(index, 1);
+            $scope.teamForm.players.splice(index, 1);
+
+            for(var i = 0;i < $scope.teamForm.players.length;i++)
+            {
+                $scope.addWatch(i, $scope.teamForm.players[i]);
+            }
+        }
+
+        $scope.addWatch = function(index, player)
+        {
+            var watch = $scope.$watch('teamForm.players[' + index + '].email', function()
+            {
+                User.get({ email:player.email }, function(user)
                 {
-                    $scope.matchedEmails[lastIndex] = true;
+                    $scope.matchedEmails[index] = true;
                 }, function(response)
                 {
-                    $scope.matchedEmails[lastIndex] = false;
+                    $scope.matchedEmails[index] = false;
                 });
             });
-        };
+
+            $scope.watches.push(watch);
+        }
 
         $scope.lastPlayer = function(index)
         {
