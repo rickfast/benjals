@@ -6,6 +6,7 @@ define(['app'], function (app)
         {
             $scope.showUI = false;
 
+            uiReady.reset();
             uiReady.whenReady().then(function()
             {
                 $scope.showUI = true;

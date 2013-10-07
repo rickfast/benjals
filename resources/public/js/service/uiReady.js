@@ -9,6 +9,11 @@ define(['selfish', 'app'], function (selfish, app)
                 this.readyDeferred = $q.defer();
             },
 
+            reset: function()
+            {
+                this.readyDeferred = $q.defer();
+            },
+
             whenReady: function()
             {
                 return this.readyDeferred.promise;
@@ -17,7 +22,6 @@ define(['selfish', 'app'], function (selfish, app)
             ready: function()
             {
                 this.readyDeferred.resolve();
-                this.readyDeferred = $q.defer();
             }
         });
 
