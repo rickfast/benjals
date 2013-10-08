@@ -1,15 +1,8 @@
-<h2>{{name}}</h2>
-<div class="list-group">
-    <div class="list-group-item">
-        <h4 class="list-group-item-heading">First Name</h4>
-        <p class="list-group-item-text">{{user.first}}</p>
-    </div>
-    <div class="list-group-item">
-        <h4 class="list-group-item-heading">Last Name</h4>
-        <p class="list-group-item-text">{{user.last}}</p>
-    </div>
-    <div class="list-group-item">
-        <h4 class="list-group-item-heading">Email</h4>
-        <p class="list-group-item-text">{{user.email}}</p>
-    </div>
+<h1>{{name}}</h1>
+<div class="media">
+    <img src="{{user.avatar}}?s=40" class="media-object">
+</div>
+<div class="media">
+    <h4 class="media-heading">{{user.first}} {{user.last}}</h4>
+    {{user.email}}
 </div>

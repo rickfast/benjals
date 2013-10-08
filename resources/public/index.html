@@ -31,7 +31,7 @@
                 </form>
                 <div data-ng-show="loginDecided && isLoggedIn()" ng-cloak>
                     <p class="navbar-text pull-right">
-                        Signed in as
+                        <img src="{{user.avatar}}?s=20">
                         <a class="navbar-link" href="#/users/{{user.id}}">{{user.first}} {{user.last}}</a>
                         (<a class="navbar-link" data-ng-click="logout()">Sign Out</a>)
                     </p>
