@@ -20,7 +20,10 @@
       (into [] results))))
 
 (defn get-by-id [game-id user-id]
-  (assoc (entity/get-by-id table-name game-id db-url) "attending" (get-attendance game-id user-id)))
+  (let [attending (get-attendance game-id user-id)]
+    (assoc (entity/get-by-id table-name game-id db-url) "attending" (cond
+                                                                      (nil? attending) nil
+                                                                      :else (attending :attending)))))
 
 (defn create [teamId game]
   (sql/with-connection db-url

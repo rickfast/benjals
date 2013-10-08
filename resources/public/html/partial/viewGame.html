@@ -1,5 +1,6 @@
 <h2>Game
-    <span class="label label-success" data-ng-show="attendance() !== null">{{attendance()}}</span>
+    <span class="label label-success" data-ng-show="game.attending !== null && game.attending">Attending</span>
+    <span class="label label-danger" data-ng-show="game.attending !== null && !game.attending">Not Attending</span>
 </h2>
 <p class="btn-group" data-ng-show="game.attending === null">
     <button type="button" class="btn btn-success" data-ng-click="setAttending(true)">Attending</button>

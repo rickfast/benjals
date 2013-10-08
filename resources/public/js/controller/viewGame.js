@@ -24,11 +24,6 @@ define(['app'], function (app)
             });
         }
 
-        $scope.attendance = function()
-        {
-            return $scope.game.attending === null ? null : ($scope.game.attending ? "Attending" : "Not Attending")
-        }
-
         $scope.refreshGame();
     });
 });
