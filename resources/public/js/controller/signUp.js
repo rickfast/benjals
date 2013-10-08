@@ -1,6 +1,6 @@
 define(['app'], function (app)
 {
-    app.controller('SignUpController', function SignUpController($scope, $http, $location, uiReady)
+    app.controller('SignUpController', function SignUpController($scope, $rootScope, $http, $location, uiReady)
     {
         uiReady.ready();
 
@@ -12,10 +12,11 @@ define(['app'], function (app)
         {
             if($scope.password === $scope.passwordConfirmation)
             {
-                $scope.signUpForm.password = CryptoJS.SHA1($scope.signUpForm.password).toString(CryptoJS.enc.Base64);
+                $scope.signUpForm.password = CryptoJS.SHA1($scope.password).toString(CryptoJS.enc.Base64);
 
                 $http.post('/api/unsecured/user/create', $scope.signUpForm).then(function(result)
                 {
+                    $rootScope.$broadcast('userUpdated');
                     $location.path("/teams");
                 });
             }

@@ -12,8 +12,8 @@
       {:status 403 :body "Create Failed"})))
 
 (defn- log-in [user]
-  (let [user (model/get-by-email (get user "email"))]
-    (if-not (nil? user)
+  (let [passwd (user "password") user (model/get-by-email (user "email"))]
+    (if (and (not (nil? user)) (= (user :password) passwd))
       {:status 200
        :body (dissoc user :password)
        :session {:session-user user}}

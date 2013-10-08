@@ -2,21 +2,34 @@ define(['app'], function (app)
 {
     app.controller('NavController', function NavController($scope, $location, $http)
     {
-        $scope.loginForm = { email:"", password:"" };
+        $scope.loginForm = { email:"" };
+        $scope.loginPassword = "";
         $scope.loginDecided = false;
         $scope.user = null;
 
-        $http.get('/api/users/current').then(function(result)
+        $scope.checkCurrentUser = function()
         {
-            $scope.user = result.data;
-            $scope.loginDecided = true;
-        }, function(error)
+            $http.get('/api/users/current').then(function(result)
+            {
+                $scope.user = result.data;
+                $scope.loginForm = { email:"" };
+                $scope.loginPassword = "";
+                $scope.loginDecided = true;
+            }, function(error)
+            {
+                $scope.loginDecided = true;
+            });
+        };
+
+        $scope.$on('userUpdated', function()
         {
-            $scope.loginDecided = true;
+            $scope.checkCurrentUser()
         });
 
         $scope.login = function()
         {
+            $scope.loginForm.password = CryptoJS.SHA1($scope.loginPassword).toString(CryptoJS.enc.Base64);
+
             $http.post('/api/unsecured/user/login', $scope.loginForm).then(function(result)
             {
                 $scope.user = result.data;
@@ -47,5 +60,7 @@ define(['app'], function (app)
         {
             $location.path("/signUp");
         };
+
+        $scope.checkCurrentUser();
     });
 });
