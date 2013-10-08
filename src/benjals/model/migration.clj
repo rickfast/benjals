@@ -39,8 +39,14 @@
                                          [:start_time :timestamp :null false]]))
 (def changeset-8 ["id=8" "author=johnvolk" [ct-change8]])
 
+(def ac-change9 (ch/add-columns :users [[:password [:varchar 100]]]))
+(def changeset-9 ["id=9" "author=rickfast" [ac-change9]])
+
+(def i-change10 (ch/insert-data :users {:id -1 :first "Fagen" :last "Berry" :email "fagen.berry@faggleberry.com" :password ""}))
+(def changeset-10 ["id=10" "author=rickfast" [i-change10]])
+
 (defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6
-                                       changeset-7 changeset-8])
+                                       changeset-7 changeset-8 changeset-9 changeset-10])
 
 (defn- split-user-info [user-info]
   (let [user-tokens (string/split user-info (Pattern/compile ":"))]

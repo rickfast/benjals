@@ -4,8 +4,8 @@ define(['app'], function (app)
     {
         uiReady.ready();
 
-        var Team = $resource('/teams/:teamId', { teamId:'@id' });
-        var User = $resource('/users/:email', { email:'@email' });
+        var Team = $resource('/api/teams/:teamId', { teamId:'@id' });
+        var User = $resource('/api/users/:email', { email:'@email' });
 
         $scope.teamForm = { name:"", players:[] };
         $scope.matchedEmails = [];

@@ -22,12 +22,12 @@
                 </ul>
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="username">
+                        <input type="text" class="form-control" data-ng-model="loginForm.email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" data-ng-model="loginForm.password" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default" data-ng-click="login()">Login</button>
                 </form>
             </div>
         </div>

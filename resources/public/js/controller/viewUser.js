@@ -2,7 +2,7 @@ define(['app'], function (app)
 {
     app.controller('ViewUserController', function ViewUserController($scope, $resource, $routeParams, uiReady)
     {
-        var User = $resource('/users/:userId', { userId:'@id' });
+        var User = $resource('/api/users/:userId', { userId:'@id' });
 
         $scope.user = User.get({ userId:$routeParams.userId }, function(user)
         {

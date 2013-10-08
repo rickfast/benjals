@@ -4,7 +4,7 @@ define(['app'], function (app)
     {
         uiReady.ready();
 
-        var Game = $resource('/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
+        var Game = $resource('/api/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
 
         $scope.startTime = null;
         $scope.gameForm = { start_time:null };

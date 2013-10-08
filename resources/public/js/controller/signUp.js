@@ -4,7 +4,7 @@ define(['app'], function (app)
     {
         uiReady.ready();
 
-        var User = $resource('/users/:userId', { teamId:'@id' });
+        var User = $resource('/api/users/:userId', { teamId:'@id' });
 
         $scope.signUpForm = { first:"", last:"", email:"" };
 
