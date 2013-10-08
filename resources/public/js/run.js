@@ -3,6 +3,7 @@ define([
     'angularRoute',
     'angularResource',
     'less',
+    'sha1',
     'service/uiReady',
     'controller/nav',
     'controller/ui',

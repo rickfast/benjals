@@ -3,9 +3,6 @@
         [ring.util.response])
   (:require [benjals.model.user :as model]))
 
-(defn create-user [user]
-  (response (model/create user)))
-
 (defn get-user [id]
   (let [result (model/get-by-id id)]
     (cond
@@ -32,7 +29,6 @@
 (defroutes routes
   (context "/users" []
     (defroutes users-routes
-      (POST "/" {body :body} (create-user body))
       (context "/current" []
         (defroutes user-current-routes
           (GET "/" {session :session} (get-current-user session))))

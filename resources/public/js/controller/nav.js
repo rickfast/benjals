@@ -17,10 +17,19 @@ define(['app'], function (app)
 
         $scope.login = function()
         {
-            $http.post('/api/login', $scope.loginForm).then(function(result)
+            $http.post('/api/unsecured/user/login', $scope.loginForm).then(function(result)
             {
                 $scope.user = result.data;
                 $location.path("/teams");
+            });
+        };
+
+        $scope.logout = function()
+        {
+            $http.get('/api/unsecured/user/logout').then(function(result)
+            {
+                $scope.user = null;
+                $location.path("/signUp");
             });
         };
 

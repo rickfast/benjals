@@ -1,21 +1,24 @@
 define(['app'], function (app)
 {
-    app.controller('SignUpController', function SignUpController($scope, $resource, $location, uiReady)
+    app.controller('SignUpController', function SignUpController($scope, $http, $location, uiReady)
     {
         uiReady.ready();
 
-        var User = $resource('/api/users/:userId', { teamId:'@id' });
-
-        $scope.signUpForm = { first:"", last:"", email:"" };
+        $scope.signUpForm = { first:"", last:"", email:""};
+        $scope.password = "";
+        $scope.passwordConfirmation = "";
 
         $scope.signUp = function()
         {
-            var newUser = new User($scope.signUpForm);
-
-            newUser.$save(function()
+            if($scope.password === $scope.passwordConfirmation)
             {
-                $location.path("/teams");
-            });
+                $scope.signUpForm.password = CryptoJS.SHA1($scope.signUpForm.password).toString(CryptoJS.enc.Base64);
+
+                $http.post('/api/unsecured/user/create', $scope.signUpForm).then(function(result)
+                {
+                    $location.path("/teams");
+                });
+            }
         };
     });
 });

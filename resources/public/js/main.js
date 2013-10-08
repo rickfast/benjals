@@ -6,7 +6,8 @@ requirejs.config({
         angularRoute: 'libs/angular-route',
         angularResource: 'libs/angular-resource',
         less: 'libs/less',
-        selfish: 'libs/selfish'
+        selfish: 'libs/selfish',
+        sha1: 'libs/sha1'
     },
     shim: {
         'angular': {

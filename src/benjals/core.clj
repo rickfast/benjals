@@ -11,7 +11,7 @@
             [benjals.controller.team :as team]
             [benjals.controller.user :as user]
             [benjals.controller.game :as game]
-            [benjals.controller.login :as login]))
+            [benjals.controller.unsecured-user :as unsecured-user]))
 
 (defroutes api-routes
   team/routes
@@ -19,8 +19,8 @@
   game/routes)
 
 (defroutes app-routes
-  (context "/api/login" []
-    (-> (handler/api login/routes) (wrap-json-body) (wrap-json-response)))
+  (context "/api/unsecured/user" []
+    (-> (handler/api unsecured-user/routes) (wrap-json-body) (wrap-json-response)))
   (context "/api" []
     (-> (handler/api api-routes) (check-logged-in) (wrap-json-body) (wrap-json-response))))
 
