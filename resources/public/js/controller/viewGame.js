@@ -1,15 +1,34 @@
 define(['app'], function (app)
 {
-    app.controller('ViewGameController', function ViewGameController($scope, $resource, $routeParams, uiReady)
+    app.controller('ViewGameController', function ViewGameController($scope, $resource, $routeParams, $http, uiReady)
     {
         var Game = $resource('/api/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
 
-        $scope.game = Game.get({ gameId:$routeParams.gameId }, function()
+        $scope.refreshGame = function()
         {
-            var game = $scope.game;
+            $scope.game = Game.get({ gameId:$routeParams.gameId }, function()
+            {
+                var game = $scope.game;
 
-            game.start_time_date = new Date(game.start_time);
-            uiReady.ready();
-        });
+                game.start_time_date = new Date(game.start_time);
+                uiReady.ready();
+            });
+        };
+
+        $scope.setAttending = function(attending)
+        {
+            $http.post('/api/teams/' + $routeParams.teamId + '/games/' + $routeParams.gameId + '/' + (attending ? 'attending' : 'not-attending'),
+                    $scope.loginForm).then(function()
+            {
+                $scope.refreshGame();
+            });
+        }
+
+        $scope.attendance = function()
+        {
+            return $scope.game.attending === null ? null : ($scope.game.attending ? "Attending" : "Not Attending")
+        }
+
+        $scope.refreshGame();
     });
 });

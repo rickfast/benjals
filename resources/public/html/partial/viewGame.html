@@ -1,4 +1,14 @@
-<h1>Game</h1>
-<ul class="list-group">
-    <li class="list-group-item"><strong>date</strong> {{game.start_time_date | date:'short' }}</li>
-</ul>
+<h2>Game
+    <span class="label label-success" data-ng-show="attendance() !== null">{{attendance()}}</span>
+</h2>
+<p class="btn-group" data-ng-show="game.attending === null">
+    <button type="button" class="btn btn-success" data-ng-click="setAttending(true)">Attending</button>
+    <button type="button" class="btn btn-danger" data-ng-click="setAttending(false)">Not Attending</button>
+</p>
+
+<div class="list-group">
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Date</h4>
+        <p class="list-group-item-text">{{game.start_time_date | date:'short' }}</p>
+    </div>
+</div>

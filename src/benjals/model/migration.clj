@@ -45,8 +45,14 @@
 (def i-change10 (ch/insert-data :users {:id -1 :first "Fagen" :last "Berry" :email "fagen.berry@faggleberry.com" :password ""}))
 (def changeset-10 ["id=10" "author=rickfast" [i-change10]])
 
+(def ct-change11 (ch/create-table :game_attendances [[:id :int :null false :pk true :autoinc true]
+                                                     [:game_id :int :null false :refs "games" :fkname "fk_games"]
+                                                     [:user_id :int :null false :refs "users" :fkname "fk_users"]
+                                                     [:attending :boolean :null false]]))
+(def changeset-11 ["id=11" "author=johnvolk" [ct-change11]])
+
 (defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6
-                                       changeset-7 changeset-8 changeset-9 changeset-10])
+                                       changeset-7 changeset-8 changeset-9 changeset-10 changeset-11])
 
 (defn- split-user-info [user-info]
   (let [user-tokens (string/split user-info (Pattern/compile ":"))]
