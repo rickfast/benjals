@@ -3,11 +3,31 @@ define(['app'], function (app)
     app.controller('NavController', function NavController($scope, $location, $http)
     {
         $scope.loginForm = { email:"", password:"" };
+        $scope.loginDecided = false;
+        $scope.user = null;
+
+        $http.get('/api/users/current').then(function(result)
+        {
+            $scope.user = result.data;
+            $scope.loginDecided = true;
+        }, function(error)
+        {
+            $scope.loginDecided = true;
+        });
 
         $scope.login = function()
         {
-            $http.post('/login', $scope.loginForm).success($scope.onLoginSuccessful).error($scope.onLoginFailed);
+            $http.post('/api/login', $scope.loginForm).then(function(result)
+            {
+                $scope.user = result.data;
+                $location.path("/teams");
+            });
         };
+
+        $scope.isLoggedIn = function()
+        {
+            return $scope.user !== null;
+        }
 
         $scope.home = function()
         {
@@ -17,16 +37,6 @@ define(['app'], function (app)
         $scope.signUp = function()
         {
             $location.path("/signUp");
-        };
-
-        $scope.onLoginSuccessful = function()
-        {
-            $location.path("/teams");
-        }
-
-        $scope.onLoginFailed = function()
-        {
-            console.log("login failed.");
         };
     });
 });

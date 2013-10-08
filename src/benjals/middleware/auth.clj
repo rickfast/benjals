@@ -1,6 +1,5 @@
 (ns benjals.middleware.auth
-  (:use [ring.util.response]
-        [sandbar.stateful-session]))
+  (:use [ring.util.response]))
 
 (defn check-logged-in
   [handler]

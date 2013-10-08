@@ -23,7 +23,6 @@ define(['angular'], function (angular)
                     if(rejection.status === 403)
                     {
                         $location.path("/signUp");
-                        return;
                     }
 
                     return $q.reject(rejection);

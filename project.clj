@@ -12,6 +12,5 @@
                  [compojure "1.1.3"]
                  [clj-dbcp      "0.8.0"]
                  [clj-liquibase "0.4.0"]
-                 [oss-jdbc      "0.8.0"]
-                 [sandbar/sandbar "0.4.0-SNAPSHOT"]]
+                 [oss-jdbc      "0.8.0"]]
   :main benjals.core)

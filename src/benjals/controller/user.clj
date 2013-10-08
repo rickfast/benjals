@@ -18,6 +18,11 @@
       (nil? result) {:status 404}
       :else (response result))))
 
+(defn get-current-user [session]
+  (cond
+    (empty? session) {:status 404}
+    :else (response (dissoc (:session-user session) :password))))
+
 (defn update-user [id user]
   (response user))
 
@@ -28,6 +33,9 @@
   (context "/users" []
     (defroutes users-routes
       (POST "/" {body :body} (create-user body))
+      (context "/current" []
+        (defroutes user-current-routes
+          (GET "/" {session :session} (get-current-user session))))
       (context ["/:id", :id #"[0-9]+"] [id]
         (let [id (read-string id)]
           (defroutes user-id-routes

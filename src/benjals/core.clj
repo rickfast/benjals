@@ -2,7 +2,7 @@
   (:use [compojure.core :only (defroutes context GET POST)]
         [ring.adapter.jetty :as ring]
         [ring.middleware.json :only (wrap-json-response wrap-json-body)]
-        [sandbar.stateful-session :only (wrap-stateful-session)]
+        [ring.middleware.session :only (wrap-session)]
         [benjals.middleware.auth :only (check-logged-in)]
         [benjals.model.migration :only (migrate)])
   (:require [compojure.route :as route]
@@ -19,13 +19,13 @@
   game/routes)
 
 (defroutes app-routes
-  (context "/login" []
-    (-> (handler/api login/routes) (wrap-json-body)))
+  (context "/api/login" []
+    (-> (handler/api login/routes) (wrap-json-body) (wrap-json-response)))
   (context "/api" []
     (-> (handler/api api-routes) (check-logged-in) (wrap-json-body) (wrap-json-response))))
 
 (defroutes app
-  (-> app-routes (wrap-stateful-session))
+  (-> app-routes (wrap-session))
   (route/resources "/")
   (GET "/" [] (resp/resource-response "index.html" {:root "public"}))
   (route/not-found "Not Found"))

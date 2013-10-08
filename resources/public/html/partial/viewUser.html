@@ -1,5 +1,15 @@
-<h1>User</h1>
-<ul class="unstyled">
-    <li><strong>email</strong> {{user.email}}</li>
-    <li><strong>name</strong> {{name}}</li>
-</ul>
+<h1>{{name}}</h1>
+<div class="list-group">
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">First Name</h4>
+        <p class="list-group-item-text">{{user.first}}</p>
+    </div>
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Last Name</h4>
+        <p class="list-group-item-text">{{user.last}}</p>
+    </div>
+    <div class="list-group-item">
+        <h4 class="list-group-item-heading">Email</h4>
+        <p class="list-group-item-text">{{user.email}}</p>
+    </div>
+</div>
