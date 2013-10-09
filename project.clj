@@ -12,5 +12,7 @@
                  [compojure "1.1.3"]
                  [clj-dbcp      "0.8.0"]
                  [clj-liquibase "0.4.0"]
-                 [oss-jdbc      "0.8.0"]]
+                 [oss-jdbc      "0.8.0"]
+                 [digest "1.4.3"]
+                 [clj-http "0.7.7"]]
   :main benjals.core)

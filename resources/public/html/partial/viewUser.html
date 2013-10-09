@@ -1,6 +1,9 @@
 <img data-ng-hide="showUI" src="img/loader.gif">
 <div data-ng-show="showUI" ng-cloak>
     <h2>{{name}}</h2>
+    <div class="media">
+        <img src="{{user.avatar}}?s=40" class="media-object">
+    </div>
     <div class="list-group">
         <div class="list-group-item">
             <h4 class="list-group-item-heading">First Name</h4>
