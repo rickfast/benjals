@@ -9,7 +9,6 @@ define(['angular'], function (angular)
   			when('/teams', {templateUrl: 'html/partial/teams.html', controller: 'TeamsController'}).
             when('/teams/add', {templateUrl: 'html/partial/addTeam.html', controller: 'AddTeamController'}).
             when('/teams/:teamId', {templateUrl: 'html/partial/viewTeam.html', controller: 'ViewTeamController'}).
-            when('/teams/:teamId/games', {templateUrl: 'html/partial/games.html', controller: 'GamesController'}).
             when('/teams/:teamId/games/add', {templateUrl: 'html/partial/addGame.html', controller: 'AddGameController'}).
             when('/teams/:teamId/games/:gameId', {templateUrl: 'html/partial/viewGame.html', controller: 'ViewGameController'}).
             when('/users/:userId', {templateUrl: 'html/partial/viewUser.html', controller: 'ViewUserController'}).

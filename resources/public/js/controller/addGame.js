@@ -1,9 +1,7 @@
 define(['app'], function (app)
 {
-    app.controller('AddGameController', function AddGameController($scope, $resource, $routeParams, $location, uiReady)
+    app.controller('AddGameController', function AddGameController($scope, $resource, $routeParams, $location)
     {
-        uiReady.ready();
-
         var Game = $resource('/api/teams/:teamId/games/:gameId', { teamId:$routeParams.teamId, gameId:'@id' });
 
         $scope.startTime = null;
@@ -42,7 +40,7 @@ define(['app'], function (app)
 
             newGame.$save(function()
             {
-                $location.path("/teams/" + $routeParams.teamId + "/games");
+                $location.path("/teams/" + $routeParams.teamId);
             });
         };
 

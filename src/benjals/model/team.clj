@@ -14,7 +14,7 @@
                                player)
                           players)))
 
-(defn get-all-players [id]
+(defn get-players [id]
   (sql/with-connection db-url
     (sql/with-query-results results
       ["select users.id, users.email, users.first, users.last from users
@@ -22,13 +22,10 @@
       (into [] results))))
 
 (defn get-all []
-  (map (fn [team]
-         (assoc team "players" (get-all-players (team :id))))
-    (entity/get-all table-name db-url)))
+  (entity/get-all table-name db-url))
 
 (defn get-by-id [id]
-  (assoc (entity/get-by-id table-name id db-url)
-    "players" (get-all-players id)))
+  (entity/get-by-id table-name id db-url))
 
 (defn create [{players "players", :as team}]
   (let [team (entity/create table-name (dissoc team "players") db-url)]

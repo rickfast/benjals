@@ -1,6 +1,13 @@
-<h2>{{team.name}}</h2>
-<h5>Players</h5>
-<ul class="list-group">
-    <a class="list-group-item" data-ng-repeat="player in team.players" href="#/users/{{player.id}}">{{player.email}}</a></li>
-</ul>
-<a href="#/teams/{{team.id}}/games" class="btn btn-success">View Games</a>
+<img data-ng-hide="showUI" src="img/loader.gif">
+<div data-ng-show="showUI" ng-cloak>
+    <h2>{{team.name}}</h2>
+    <h5>Players</h5>
+    <ul class="list-group">
+        <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}</a></li>
+    </ul>
+    <h5>Games</h5>
+    <ul class="list-group">
+        <a class="list-group-item" data-ng-repeat="game in games" href="#/teams/{{team.id}}/games/{{game.id}}">{{game.start_time_date | date:'short'}}</a></li>
+    </ul>
+    <a href="#/teams/{{team.id}}/games/add" class="btn btn-success">Add Game</a>
+</div>

@@ -15,6 +15,12 @@
       (nil? result) {:status 404}
       :else (response result))))
 
+(defn get-players [id]
+  (let [result (model/get-players id)]
+    (cond
+      (empty? result) {:status 404}
+      :else (response result))))
+
 (defn update-team [id team]
   (response team))
 
@@ -29,6 +35,7 @@
       (context "/:id" [id]
         (let [id (read-string id)]
           (defroutes team-routes
+            (GET "/players" [] (get-players id))
             (GET "/" [] (get-team id))
             (PUT "/" {body :body} (update-team id body))
             (DELETE "/" [] (delete-team id))))))))

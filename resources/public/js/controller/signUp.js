@@ -1,9 +1,7 @@
 define(['app'], function (app)
 {
-    app.controller('SignUpController', function SignUpController($scope, $rootScope, $http, $location, uiReady)
+    app.controller('SignUpController', function SignUpController($scope, $rootScope, $http, $location)
     {
-        uiReady.ready();
-
         $scope.signUpForm = { first:"", last:"", email:""};
         $scope.password = "";
         $scope.passwordConfirmation = "";

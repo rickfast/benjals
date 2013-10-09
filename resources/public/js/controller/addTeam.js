@@ -1,9 +1,7 @@
 define(['app'], function (app)
 {
-    app.controller('AddTeamController', function AddTeamController($scope, $resource, $location, uiReady)
+    app.controller('AddTeamController', function AddTeamController($scope, $resource, $location)
     {
-        uiReady.ready();
-
         var Team = $resource('/api/teams/:teamId', { teamId:'@id' });
         var User = $resource('/api/users/:email', { email:'@email' });
 

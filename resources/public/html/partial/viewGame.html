@@ -1,12 +1,14 @@
-<h2>Game
-    <span class="label label-success" data-ng-show="game.attending !== null && game.attending">Attending</span>
-    <span class="label label-danger" data-ng-show="game.attending !== null && !game.attending">Not Attending</span>
-</h2>
-<p class="btn-group" data-ng-show="game.attending === null">
-    <button type="button" class="btn btn-success" data-ng-click="setAttending(true)">Attending</button>
-    <button type="button" class="btn btn-danger" data-ng-click="setAttending(false)">Not Attending</button>
+<h2>Game</h2>
+<p class="btn-group" data-ng-show="attendingDecided && !attendingSet()">
+    <button type="button" class="btn btn-success btn-sm" data-ng-click="setAttending(true)">Attending</button>
+    <button type="button" class="btn btn-danger btn-sm" data-ng-click="setAttending(false)">Not Attending</button>
 </p>
-
+<p class="btn-group" data-ng-show="attendingSet() && game.attending">
+    <span class="label label-success">Attending</span>
+</p>
+<p class="btn-group" data-ng-show="attendingSet() && !game.attending">
+    <span class="label label-danger">Not Attending</span>
+</p>
 <div class="list-group">
     <div class="list-group-item">
         <h4 class="list-group-item-heading">Date</h4>
