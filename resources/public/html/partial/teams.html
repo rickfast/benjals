@@ -1,7 +1,12 @@
 <h2>Teams</h2>
-<ul class="list-group">
-    <a class="list-group-item" data-ng-repeat="team in teams" href="#/teams/{{team.id}}">{{team.name}}</a>
-</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Teams</h3>
+    </div>
+    <div class="list-group">
+        <a class="list-group-item" data-ng-repeat="team in teams" href="#/teams/{{team.id}}">{{team.name}}</a>
+    </div>
+</div>
 <div class="btn-group">
     <a href="#/teams/add" class="btn btn-success">Add Team</a>
 </div>

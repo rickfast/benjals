@@ -16,6 +16,12 @@
       (nil? result) {:status 404}
       :else (response result))))
 
+(defn get-players [id]
+  (let [result (model/get-players id)]
+    (cond
+      (empty? result) {:status 404}
+      :else (response result))))
+
 (defn update-game [id game]
   (response game))
 
@@ -34,6 +40,7 @@
         (context "/:id" [id]
           (let [id (read-string id)]
             (defroutes game-routes
+              (GET "/players" [] (get-players id))
               (POST "/attending" {session :session} (set-attending session id true))
               (POST "/not-attending" {session :session} (set-attending session id false))
               (GET "/" {session :session} (get-game session id))

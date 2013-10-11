@@ -6,8 +6,8 @@
 (defn index-teams []
   (response (model/get-all)))
 
-(defn create-team [team]
-  (response (model/create team)))
+(defn create-team [session team]
+  (response (model/create (:id (:session-user session)) team)))
 
 (defn get-team [id]
   (let [result (model/get-by-id id)]
@@ -31,7 +31,7 @@
   (context "/teams" []
     (defroutes teams-routes
       (GET  "/" [] (index-teams))
-      (POST "/" {body :body} (create-team body))
+      (POST "/" {session :session, body :body } (create-team session body))
       (context "/:id" [id]
         (let [id (read-string id)]
           (defroutes team-routes

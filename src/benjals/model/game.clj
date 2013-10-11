@@ -13,6 +13,13 @@
         (empty? results) nil
         :else (first results)))))
 
+(defn get-players [id]
+  (sql/with-connection db-url
+    (sql/with-query-results results
+      ["select users.id, users.email, users.first, users.last, game_attendances.attending from users
+        left outer join game_attendances on (users.id = game_attendances.user_id) where game_attendances.game_id = ?" id]
+      (into [] results))))
+
 (defn get-all [team-id]
   (sql/with-connection db-url
     (sql/with-query-results results

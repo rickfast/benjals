@@ -1,13 +1,21 @@
-<img data-ng-hide="showUI" src="img/loader.gif">
-<div data-ng-show="showUI" ng-cloak>
-    <h2>{{team.name}}</h2>
-    <h5>Players</h5>
-    <ul class="list-group">
-        <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}</a></li>
-    </ul>
-    <h5>Games</h5>
-    <ul class="list-group">
-        <a class="list-group-item" data-ng-repeat="game in games" href="#/teams/{{team.id}}/games/{{game.id}}">{{game.start_time_date | date:'short'}}</a></li>
-    </ul>
-    <a href="#/teams/{{team.id}}/games/add" class="btn btn-success">Add Game</a>
+<h2>{{team.name}}</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Players</h3>
+    </div>
+    <div class="list-group">
+        <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}
+            <span data-ng-show="player.id === team.creator_id" class="label label-success">Creator</span>
+            <span data-ng-show="player.alternate" class="label label-warning">Alternate</span>
+        </a>
+    </div>
 </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Games</h3>
+    </div>
+    <div class="list-group">
+        <a class="list-group-item" data-ng-repeat="game in games" href="#/teams/{{team.id}}/games/{{game.id}}">{{game.start_time_date | date:'short'}}</a>
+    </div>
+</div>
+<a href="#/teams/{{team.id}}/games/add" class="btn btn-success">Add Game</a>

@@ -9,7 +9,7 @@
 (defn link-players [players team]
   (assoc team "players" (map (fn [player]
                                (entity/create "users_teams"
-                                 {"user_id" (player :id), "team_id" (team :id)}
+                                 {"user_id" (player :id), "team_id" (team :id), "alternate" (player :alternate)}
                                  db-url)
                                player)
                           players)))
@@ -17,7 +17,7 @@
 (defn get-players [id]
   (sql/with-connection db-url
     (sql/with-query-results results
-      ["select users.id, users.email, users.first, users.last from users
+      ["select users.id, users.email, users.first, users.last, users_teams.alternate from users
         inner join users_teams on (users.id = users_teams.user_id) where users_teams.team_id = ?" id]
       (into [] results))))
 
@@ -27,13 +27,14 @@
 (defn get-by-id [id]
   (entity/get-by-id table-name id db-url))
 
-(defn create [{players "players", :as team}]
-  (let [team (entity/create table-name (dissoc team "players") db-url)]
+(defn create [creator-id {players "players", :as team}]
+  (let [team (entity/create table-name (-> team (dissoc "players") (assoc "creator_id" creator-id)) db-url)]
     (link-players (map (fn [player]
                          (let [existing-user (user/get-by-email (player "email"))]
-                           (cond
-                             (nil? existing-user) (user/create player)
-                             :else existing-user)))
+                           (assoc (cond
+                                    (nil? existing-user) (user/create player)
+                                    :else existing-user)
+                             :alternate (player "alternate"))))
                     players)
       team)))
 

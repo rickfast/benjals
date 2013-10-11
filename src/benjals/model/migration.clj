@@ -51,8 +51,19 @@
                                                      [:attending :boolean :null false]]))
 (def changeset-11 ["id=11" "author=johnvolk" [ct-change11]])
 
+(def ac-change12 (ch/add-columns :teams [[:required_head_count :int :null false]
+                                        [:registration_deadline :int :null false]]))
+(def changeset-12 ["id=12" "author=johnvolk" [ac-change12]])
+
+(def ac-change13 (ch/add-columns :users_teams [[:alternate :boolean :null false]]))
+(def changeset-13 ["id=13" "author=johnvolk" [ac-change13]])
+
+(def ac-change14 (ch/add-columns :teams [[:creator_id :int :null false :refs "users(id)" :fkname "fk_users"]]))
+(def changeset-14 ["id=14" "author=johnvolk" [ac-change14]])
+
 (defchangelog app-changelog "benjals" [changeset-1 changeset-2 changeset-3 changeset-4 changeset-5 changeset-6
-                                       changeset-7 changeset-8 changeset-9 changeset-10 changeset-11])
+                                       changeset-7 changeset-8 changeset-9 changeset-10 changeset-11 changeset-12
+                                       changeset-13 changeset-14])
 
 (defn- split-user-info [user-info]
   (let [user-tokens (string/split user-info (Pattern/compile ":"))]

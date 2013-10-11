@@ -16,5 +16,6 @@
         :else (first results)))))
 
 (defn create [table value-map db-url]
+  (prn value-map)
   (sql/with-connection db-url
     (sql/insert-values (keyword table) (keys value-map) (vals value-map))))

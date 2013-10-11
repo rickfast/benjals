@@ -5,22 +5,42 @@
             <label>Name</label>
             <input type="text" class="form-control" data-ng-model="teamForm.name" placeholder="Name">
         </div>
-        <h5>Players</h5>
-
-        <div class="form-group" data-ng-repeat="player in teamForm.players">
+        <div class="form-group">
+            <label>Registration Deadline</label>
             <div class="input-group">
-                <span class="input-group-addon">
-                    <span data-ng-class="{'glyphicon': true, 'glyphicon-ok': emailMatched($index), 'glyphicon-remove': !emailMatched($index)}"></span>
-                </span>
-                <input type="text" class="form-control" data-ng-model="player.email" placeholder="Enter email...">
-                <span class="input-group-btn">
-                    <button type="button" class="btn" data-ng-click="lastPlayer($index) ? addPlayer() : removePlayer($index)">
-                        <span data-ng-class="{'glyphicon': true, 'glyphicon-plus': lastPlayer($index), 'glyphicon-minus': !lastPlayer($index)}"></span>
-                    </button>
-                </span>
+                <input class="form-control" type="number" data-ng-model="teamForm.registration_deadline" min="0" max="48">
+                <span class="input-group-addon">Hours</span>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primary" data-ng-click="addTeam()">Submit</button>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Players</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>Required Head Count</label>
+                    <div class="input-group">
+                        <input class="form-control" type="number" data-ng-model="teamForm.required_head_count" min="0" max="50">
+                        <span class="input-group-addon">Players</span>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-repeat="player in players">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span data-ng-class="{'glyphicon': true, 'glyphicon-ok': emailMatched($index), 'glyphicon-remove': !emailMatched($index)}"></span>
+                        </span>
+                        <input type="text" class="form-control" data-ng-model="player.email" placeholder="Enter email...">
+                        <span class="input-group-btn">
+                            <button type="button" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="lastPlayer($index) ? addPlayer() : removePlayer($index)">
+                                <span data-ng-class="{'glyphicon': true, 'glyphicon-plus': lastPlayer($index), 'glyphicon-minus': !lastPlayer($index)}"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" data-ng-click="addTeam()">Submit</button>
+        </div>
     </fieldset>
 </form>
