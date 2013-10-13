@@ -68,6 +68,13 @@ define(['angular'], function (angular)
                 templateUrl: 'html/partial/viewGame.html',
                 controller: 'ViewGameController',
                 resolve: {
+                    'user': function($http)
+                    {
+                        return $http.get('/api/users/current').then(function(result)
+                        {
+                            return result.data;
+                        });
+                    },
                     'game': function($resource, $route)
                     {
                         var Game = $resource('/api/teams/:teamId/games/:gameId', { teamId:$route.current.params.teamId, gameId:'@id' });
@@ -79,6 +86,14 @@ define(['angular'], function (angular)
 
                             return game;
                         });
+                    },
+                    'players': function($resource, $route)
+                    {
+                        var params = $route.current.params;
+                        var Game = $resource('/api/teams/:teamId/games/:gameId/:action', { teamId:params.teamId, gameId:params.gameId, action:'@action' });
+                        var players = Game.query({ action:"players" });
+
+                        return players.$promise;
                     }
                 }
             }).

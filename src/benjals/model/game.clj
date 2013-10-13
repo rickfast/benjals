@@ -5,19 +5,14 @@
 (def table-name "games")
 (def db-url (System/getenv "DATABASE_URL"))
 
-(defn get-attendance [game-id user-id]
+(defn get-players [teamId id]
   (sql/with-connection db-url
     (sql/with-query-results results
-      ["select attending from game_attendances where game_id = ? and user_id = ?" game-id user-id]
-      (cond
-        (empty? results) nil
-        :else (first results)))))
-
-(defn get-players [id]
-  (sql/with-connection db-url
-    (sql/with-query-results results
-      ["select users.id, users.email, users.first, users.last, game_attendances.attending from users
-        left outer join game_attendances on (users.id = game_attendances.user_id) where game_attendances.game_id = ?" id]
+      ["select users.*, game_attendances.attending from users
+        inner join users_teams on (users.id = users_teams.user_id)
+        left outer join game_attendances on (users.id = game_attendances.user_id)
+        where users_teams.team_id = ?
+        and (game_attendances.game_id = ? or game_attendances.attending is null)" teamId id]
       (into [] results))))
 
 (defn get-all [team-id]
@@ -26,11 +21,8 @@
       ["select * from games where team_id = ? order by id desc" team-id]
       (into [] results))))
 
-(defn get-by-id [game-id user-id]
-  (let [attending (get-attendance game-id user-id)]
-    (assoc (entity/get-by-id table-name game-id db-url) "attending" (cond
-                                                                      (nil? attending) nil
-                                                                      :else (attending :attending)))))
+(defn get-by-id [game-id]
+  (entity/get-by-id table-name game-id db-url))
 
 (defn create [teamId game]
   (sql/with-connection db-url

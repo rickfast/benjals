@@ -17,8 +17,9 @@
 (defn get-players [id]
   (sql/with-connection db-url
     (sql/with-query-results results
-      ["select users.id, users.email, users.first, users.last, users_teams.alternate from users
-        inner join users_teams on (users.id = users_teams.user_id) where users_teams.team_id = ?" id]
+      ["select users.*, users_teams.alternate from users
+        inner join users_teams on (users.id = users_teams.user_id)
+        where users_teams.team_id = ?" id]
       (into [] results))))
 
 (defn get-all []

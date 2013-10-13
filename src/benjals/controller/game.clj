@@ -10,14 +10,14 @@
 (defn create-game [teamId game]
   (response (model/create teamId game)))
 
-(defn get-game [session game-id]
-  (let [result (model/get-by-id game-id (:id (:session-user session)))]
+(defn get-game [game-id]
+  (let [result (model/get-by-id game-id)]
     (cond
       (nil? result) {:status 404}
       :else (response result))))
 
-(defn get-players [id]
-  (let [result (model/get-players id)]
+(defn get-players [teamId id]
+  (let [result (model/get-players teamId id)]
     (cond
       (empty? result) {:status 404}
       :else (response result))))
@@ -40,9 +40,9 @@
         (context "/:id" [id]
           (let [id (read-string id)]
             (defroutes game-routes
-              (GET "/players" [] (get-players id))
+              (GET "/players" [] (get-players teamId id))
               (POST "/attending" {session :session} (set-attending session id true))
               (POST "/not-attending" {session :session} (set-attending session id false))
-              (GET "/" {session :session} (get-game session id))
+              (GET "/" [] (get-game id))
               (PUT "/" {body :body} (update-game id body))
               (DELETE "/" [] (delete-game id)))))))))
