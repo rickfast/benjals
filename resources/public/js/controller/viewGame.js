@@ -24,6 +24,17 @@ define(['app'], function (app)
                     $scope.loginForm).then(function()
             {
                 $scope.attending = attending;
+
+                for(var i = 0;i < $scope.players.length;i++)
+                {
+                    var player = $scope.players[i];
+
+                    if(player.id === $scope.user.id)
+                    {
+                        player.attending = $scope.attending;
+                        break;
+                    }
+                }
             });
         }
     });
