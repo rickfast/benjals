@@ -5,7 +5,7 @@
     </div>
     <div class="list-group">
         <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}
-            <span data-ng-show="player.id === team.creator_id" class="label label-success">Creator</span>
+            <span data-ng-show="player.id === team.creator_id" class="label label-success">Manager</span>
             <span data-ng-show="player.alternate" class="label label-warning">Alternate</span>
         </a>
     </div>

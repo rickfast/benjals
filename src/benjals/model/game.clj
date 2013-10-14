@@ -9,10 +9,12 @@
   (sql/with-connection db-url
     (sql/with-query-results results
       ["select users.*, game_attendances.attending from users
-        inner join users_teams on (users.id = users_teams.user_id)
-        left outer join game_attendances on (users.id = game_attendances.user_id)
-        where users_teams.team_id = ?
-        and (game_attendances.game_id = ? or game_attendances.attending is null)" teamId id]
+        inner join users_teams
+        on users.id = users_teams.user_id
+        and users_teams.team_id = ?
+        left join game_attendances
+        on users.id = game_attendances.user_id
+        and game_attendances.game_id = ?" teamId id]
       (into [] results))))
 
 (defn get-all [team-id]
