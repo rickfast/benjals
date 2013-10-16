@@ -11,7 +11,8 @@
             [benjals.controller.team :as team]
             [benjals.controller.user :as user]
             [benjals.controller.game :as game]
-            [benjals.controller.unsecured-user :as unsecured-user]))
+            [benjals.controller.unsecured-user :as unsecured-user]
+            [benjals.job.schedule :as schedule]))
 
 (defroutes api-routes
   team/routes
@@ -32,6 +33,7 @@
 
 (defn -main []
   (migrate (System/getenv "DATABASE_URL"))
+  (schedule/start-scheduler)
   (let
     [port-env (System/getenv "PORT")
      port (if-not (nil? port-env) (Integer/valueOf port-env) 8080)]
