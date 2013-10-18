@@ -1,7 +1,13 @@
 <h2>{{game.start_time_date | date:'short' }}</h2>
-<p class="btn-group" data-ng-show="attending === null">
+<p class="btn-group" data-ng-show="attending === null && canRegister() && !headCountReached()">
     <button type="button" class="btn btn-success btn-sm" data-ng-click="setAttending(true)">Attending</button>
     <button type="button" class="btn btn-danger btn-sm" data-ng-click="setAttending(false)">Not Attending</button>
+</p>
+<p class="text-warning" data-ng-show="attending === null && !canRegister() && !headCountReached()">
+    Alternate registration starts: <em>{{deadline | date:'MMMM d, y @ h:mm a' }}</em>
+</p>
+<p class="text-success" data-ng-show="headCountReached()">
+    Required head count reached.
 </p>
 <div class="panel panel-default">
     <div class="panel-heading">

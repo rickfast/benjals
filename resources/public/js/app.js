@@ -1,6 +1,6 @@
 define(['angular'], function (angular)
 {
-	var benjals = angular.module('benjals', ['ngRoute', 'ngResource']);
+	var benjals = angular.module('benjals', ['ngRoute', 'ngResource', 'xeditable']);
 
 	benjals.config(function($routeProvider, $provide, $httpProvider)
 	{
@@ -75,6 +75,13 @@ define(['angular'], function (angular)
                             return result.data;
                         });
                     },
+                    'team': function($resource, $route)
+                    {
+                        var Team = $resource('/api/teams/:teamId', { teamId:$route.current.params.teamId });
+                        var team = Team.get();
+
+                        return team.$promise;
+                    },
                     'game': function($resource, $route)
                     {
                         var Game = $resource('/api/teams/:teamId/games/:gameId', { teamId:$route.current.params.teamId, gameId:'@id' });
@@ -131,7 +138,10 @@ define(['angular'], function (angular)
         $httpProvider.interceptors.push('authInterceptor');
 	});
 
-    benjals.run();
+    benjals.run(function(editableOptions)
+    {
+        editableOptions.theme = 'bs3';
+    });
 
 	return benjals;
 });

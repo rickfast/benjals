@@ -1,22 +1,22 @@
 (ns benjals.controller.team
   (:use [compojure.core :only (defroutes context GET POST PUT DELETE)]
         [ring.util.response])
-  (:require [benjals.model.team :as model]))
+  (:require [benjals.service.team :as service]))
 
 (defn index-teams []
-  (response (model/get-all)))
+  (response (service/get-teams)))
 
 (defn create-team [session team]
-  (response (model/create (:id (:session-user session)) team)))
+  (response (service/create-team (:id (:session-user session)) team)))
 
 (defn get-team [id]
-  (let [result (model/get-by-id id)]
+  (let [result (service/get-team id)]
     (cond
       (nil? result) {:status 404}
       :else (response result))))
 
-(defn get-players [id]
-  (let [result (model/get-players id)]
+(defn index-players [id]
+  (let [result (service/get-players id)]
     (cond
       (empty? result) {:status 404}
       :else (response result))))
@@ -35,7 +35,7 @@
       (context "/:id" [id]
         (let [id (read-string id)]
           (defroutes team-routes
-            (GET "/players" [] (get-players id))
+            (GET "/players" [] (index-players id))
             (GET "/" [] (get-team id))
             (PUT "/" {body :body} (update-team id body))
             (DELETE "/" [] (delete-team id))))))))

@@ -2,6 +2,7 @@ define([
 	'angular',
     'angularRoute',
     'angularResource',
+    'xeditable',
     'less',
     'sha1',
     'controller/nav',

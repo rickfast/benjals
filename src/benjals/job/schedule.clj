@@ -21,5 +21,5 @@
                   (t/start-now)
                   (t/with-schedule (schedule
                                      (repeat-forever)
-                                     (with-interval-in-milliseconds 2000))))]
+                                     (with-interval-in-milliseconds 600000))))]
     (qs/schedule job trigger)))

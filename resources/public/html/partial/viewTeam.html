@@ -1,21 +1,63 @@
-<h2>{{team.name}}</h2>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Players</h3>
-    </div>
-    <div class="list-group">
-        <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}
-            <span data-ng-show="player.id === team.creator_id" class="label label-success">Manager</span>
-            <span data-ng-show="player.alternate" class="label label-warning">Alternate</span>
-        </a>
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Games</h3>
-    </div>
-    <div class="list-group">
-        <a class="list-group-item" data-ng-repeat="game in games" href="#/teams/{{team.id}}/games/{{game.id}}">{{game.start_time_date | date:'short'}}</a>
-    </div>
-</div>
-<a href="#/teams/{{team.id}}/games/add" class="btn btn-success">Add Game</a>
+<form editable-form onshow="startEditing()" onaftersave="saveEdits()" name="teamForm">
+    <fieldset>
+        <div class="form-group">
+            <h2 editable-text="team.name">
+                {{team.name}}
+                <button type="button" class="btn btn-sm" ng-click="teamForm.$show()" ng-hide="teamForm.$visible">Edit</button>
+            </h2>
+            <span ng-show="teamForm.$visible">
+                <button type="submit" class="btn btn-primary btn-sm" ng-disabled="teamForm.$waiting">Save</button>
+                <button type="button" class="btn btn-sm" ng-disabled="teamForm.$waiting" ng-click="teamForm.$hide()">Cancel</button>
+            </span>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Players</h3>
+            </div>
+            <div class="list-group" ng-hide="teamForm.$visible">
+                <a class="list-group-item" data-ng-repeat="player in players" href="#/users/{{player.id}}">{{player.email}}
+                    <span data-ng-show="player.id === team.creator_id" class="label label-success">Manager</span>
+                    <span data-ng-show="player.alternate" class="label label-warning">Alternate</span>
+                </a>
+            </div>
+            <div class="panel-body" data-ng-show="teamForm.$visible">
+                <div class="form-group" data-ng-repeat="player in updatedPlayers">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span data-ng-class="{'glyphicon': true, 'glyphicon-ok': existingPlayer($index) || emailMatched($index), 'glyphicon-remove': !existingPlayer($index) && !emailMatched($index)}"></span>
+                        </span>
+                        <input type="text" class="form-control" data-ng-model="player.email" data-ng-readonly="existingPlayer($index)">
+                        <span class="input-group-btn">
+                            <button type="button" data-ng-show="lastPlayer($index)" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="addPlayer()">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button type="button" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="removePlayer($index)">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Games</h3>
+            </div>
+            <div class="list-group" data-ng-hide="teamForm.$visible">
+                <a class="list-group-item" data-ng-repeat="game in games" href="#/teams/{{team.id}}/games/{{game.id}}">
+                    {{game.start_time_date | date:'MMMM d, y @ h:mm a'}}
+                </a>
+            </div>
+            <ul class="list-group" data-ng-show="teamForm.$visible">
+                <li class="list-group-item" data-ng-repeat="game in updatedGames">
+                    <button type="button" class="btn btn-danger" data-ng-click="removeGame($index)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    {{game.start_time_date | date:'MMMM d, y @ h:mm a'}}
+                </li>
+            </ul>
+        </div>
+    </fieldset>
+    <a href="#/teams/{{team.id}}/games/add" class="btn btn-success">Add Game</a>
+</form>

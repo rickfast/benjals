@@ -1,10 +1,10 @@
 (ns benjals.controller.unsecured-user
   (:use [compojure.core :only (defroutes POST GET)]
         [ring.util.response])
-  (:require [benjals.model.user :as model]))
+  (:require [benjals.service.user :as service]))
 
 (defn create-user [user]
-  (let [user (model/create user)]
+  (let [user (service/create-user user)]
     (if-not (nil? user)
       {:status 200
        :body (dissoc user :password)
@@ -12,7 +12,7 @@
       {:status 403 :body "Create Failed"})))
 
 (defn- log-in [user]
-  (let [passwd (user "password") user (model/get-by-email (user "email"))]
+  (let [passwd (user "password") user (service/get-user-by-email (user "email"))]
     (if (and (not (nil? user)) (= (user :password) passwd))
       {:status 200
        :body (dissoc user :password)

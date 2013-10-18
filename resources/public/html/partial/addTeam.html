@@ -31,8 +31,11 @@
                         </span>
                         <input type="text" class="form-control" data-ng-model="player.email" placeholder="Enter email...">
                         <span class="input-group-btn">
-                            <button type="button" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="lastPlayer($index) ? addPlayer() : removePlayer($index)">
-                                <span data-ng-class="{'glyphicon': true, 'glyphicon-plus': lastPlayer($index), 'glyphicon-minus': !lastPlayer($index)}"></span>
+                            <button type="button" data-ng-show="lastPlayer($index)" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="addPlayer()">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button type="button" data-ng-class="{'btn': true, 'btn-warning': alternate($index)}" data-ng-click="removePlayer($index)">
+                                <span class="glyphicon glyphicon-minus"></span>
                             </button>
                         </span>
                     </div>

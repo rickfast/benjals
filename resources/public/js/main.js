@@ -5,6 +5,7 @@ requirejs.config({
         angular: 'libs/angular',
         angularRoute: 'libs/angular-route',
         angularResource: 'libs/angular-resource',
+        xeditable: 'libs/xeditable',
         less: 'libs/less',
         selfish: 'libs/selfish',
         sha1: 'libs/sha1'
@@ -17,6 +18,9 @@ requirejs.config({
             deps: ['angular']
         },
         'angularResource': {
+            deps: ['angular']
+        },
+        'xeditable': {
             deps: ['angular']
         }
     }
