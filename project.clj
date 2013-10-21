@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :uberjar-name "benjals.jar"
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/java.jdbc "0.2.3"]
+                 [org.clojure/java.jdbc "0.3.0-alpha5"]
                  [postgresql "9.1-901.jdbc4"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [ring/ring-json "0.2.0"]
