@@ -15,5 +15,6 @@
                  [oss-jdbc      "0.8.0"]
                  [digest "1.4.3"]
                  [clj-http "0.7.7"]
-                 [clojurewerkz/quartzite "1.1.0"]]
+                 [clojurewerkz/quartzite "1.1.0"]
+                 [com.mchange/c3p0 "0.9.2.1"]]
   :main benjals.core)
